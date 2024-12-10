@@ -224,6 +224,7 @@ class Estudiante extends Persona{
             //Verificamos si el estudiante esta matriculado ya en esa asignatura
             const matriculado = this.#asignaturas.some(([asig]) => asig.nombreAsignatura === asignatura.nombreAsinatura);
 
+            //Si está matriculado añado la asignatura y registro en el historial la matriculacion
             if(matriculado){
                 console.error(`ERROR: El estudiante ya esta matriculado en ${asignatura.nombreAsignatura}`);
             }else{
@@ -231,25 +232,21 @@ class Estudiante extends Persona{
                 this.#historial.push(`${new Date().toLocaleDateString('es-ES')} - Matricula: ${asignatura.nombreAsignatura}`);
             }
         }
-        // for(let asignatura of asignaturas){
-        //     if(!this.#asignaturas.some(([asig]) => asig.nombreAsignatura === asignatura.nombreAsignatura)){
-        //         this.#asignaturas.push([asignatura, null]);
-        //     }else{
-        //         console.error("ERROR: El estudiante ya esta matriculado.");
-        //     }
-        // }
-
-        // this.#historial.push(`${new Date().toLocaleDateString('es-ES')} - Matricula: ${asignatura.nombreAsignatura}`);
     }
     //DESMATRICULAR ALUMNO
     desmatricular(...asignaturas){
         for(let asignatura of asignaturas){
-            const subject = this.#asignaturas.findIndex(([asig]) => asig.nombreAsignatura === asignatura.nombreAsignatura);
+            let encontrado = false;
 
-            if(subject !== -1){
-                this.#asignaturas.splice(subject, 1);
-            }else{
-                console.error(`ERROR: El estudiante no está matriculado en esa asignatura`);
+            for (let i = 0; i < this.#asignaturas.length; i++) {
+                if(this.#asignaturas[i][0].nombreAsignatura === asignatura.nombreAsignatura){
+                    this.#asignaturas.splice(i, 1);
+                    encontrado = true;
+
+                    this.#historial.push(`${new Date().toLocaleDateString('es-ES')} - Desmatricula: ${asignatura.nombreAsignatura}`);
+                    break;
+                }
+                
             }
         }
     }
