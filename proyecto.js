@@ -288,6 +288,18 @@ class Estudiante extends Persona{
             console.error(`ERROR: El ID ${id} no esta siendo utilizado`);
         }
     }
+
+    registrosHistorial(){
+        if (this.#historial.length === 0){
+            console.error("ERROR: No hay registros en el historial.");
+            return;
+        }
+
+        console.log("HISTORIAL: ");
+        for(const registro of this.#historial){
+            console.log(registro);
+        }
+    }
 }
 //CLASE ASIGNATURAS
 class Asignaturas{
@@ -337,6 +349,8 @@ class Asignaturas{
         //calculo la media y devuelvo un el resultado con 2 decimales
         return (suma/this.#calificaciones.length).toFixed(2);
     }
+
+    
 
     toString(){
         return `Nombre: ${this.nombreAsignatura}, Calificaciones: ${this.calificaciones}`;
@@ -453,19 +467,6 @@ class ListaAsignaturas extends Lista {
 
     buscarPorNombre(patron){
         return this.buscarElementos(asignatura => patron.test(asignatura.nombreAsignatura));
-        //Inicializo un array donde guardare los resultados que coindizan con lo que se ha pasado como parametro
-        // const resultados = [];
-
-        // Recorro todas las asignaturas de la lista
-        // for(const asignatura of this.obtenerElementos()){
-        //     //Compruebo que el patron coincida con alguna asignatura y si es así lo guardo en el array resultados
-        //     if(patron.test(asignatura.nombreAsignatura)){
-        //         resultados.push(asignatura);
-        //     }
-        // }
-
-        // //Devuelvo los resultados
-        // return resultados;
     }
 
 
