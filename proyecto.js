@@ -197,6 +197,14 @@ class Estudiante extends Persona{
         return this.#asignaturas;
     }
 
+    set asignaturas(asignaturas){
+        if(Array.isArray(asignaturas)){
+            this.#asignaturas = asignaturas;
+        }else{
+            console.error("ERROR");
+        }
+    }
+
     get calificacionesRegistradas(){
         return this.#calificacionesRegistradas;
     }
@@ -519,7 +527,7 @@ while(!salirMenuPrincipal){
     const op = prompt("Elija una opción: ");
 
     switch(op){
-        case 1: 
+        case '1': 
             menuCrear();
             const opCrear = prompt("Elija una opción: ");
             switch(opCrear){
@@ -702,7 +710,7 @@ while(!salirMenuPrincipal){
                         const encontradoEstudiante = listaEstudiantes.buscarElementos(estudiante => estudiante.nombre === patron);
 
                         if(encontradoEstudiante){
-                            console.log(encontradoEstudiante.generarReporte());
+                            console.log(encontradoEstudiante.toString());
                         }else{
                             console.error("ERROR: No hay resultados");
                         }
