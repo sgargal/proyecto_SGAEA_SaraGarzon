@@ -394,6 +394,10 @@ class ListaEstudiantes extends Lista{
         return sumTotal / stuConPromedio;
     }
 
+    buscarPorNombreEstudiante(patron){
+        return this.buscarElementos(estudiante => patron.test(estudiante.nombre));
+    }
+
     generarReporte(){
         //Recorro todos los estudiantes de la lista
         for(const estudiante of this.obtenerElementos()){
@@ -434,19 +438,20 @@ class ListaAsignaturas extends Lista {
     }
 
     buscarPorNombre(patron){
+        return this.buscarElementos(asignatura => patron.test(asignatura.nombreAsignatura));
         //Inicializo un array donde guardare los resultados que coindizan con lo que se ha pasado como parametro
-        const resultados = [];
+        // const resultados = [];
 
-        //Recorro todas las asignaturas de la lista
-        for(const asignatura of this.obtenerElementos()){
-            //Compruebo que el patron coincida con alguna asignatura y si es así lo guardo en el array resultados
-            if(patron.test(asignatura.nombreAsignatura)){
-                resultados.push(asignatura);
-            }
-        }
+        // Recorro todas las asignaturas de la lista
+        // for(const asignatura of this.obtenerElementos()){
+        //     //Compruebo que el patron coincida con alguna asignatura y si es así lo guardo en el array resultados
+        //     if(patron.test(asignatura.nombreAsignatura)){
+        //         resultados.push(asignatura);
+        //     }
+        // }
 
-        //Devuelvo los resultados
-        return resultados;
+        // //Devuelvo los resultados
+        // return resultados;
     }
 
 
