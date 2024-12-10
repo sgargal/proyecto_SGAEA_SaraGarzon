@@ -395,15 +395,17 @@ class ListaEstudiantes extends Lista{
     }
 
     generarReporte(){
-        //Inicializo la variable vacía para luego almacenar la información cada estudiante;
-        let reporte = "";
-
         //Recorro todos los estudiantes de la lista
         for(const estudiante of this.obtenerElementos()){
             //Guardo el promedio de calificaciones del estudiante
             const promedio = estudiante.promedioCalificaciones();
-            //Voy acumulando en la variable reporte la informacion de cada estudiante
-            reporte += `Estudiante: ${estudiante.nombre}, ID: ${estudiante.id}, Promedio: ${promedio ?? "Sin promedio"}\n`;
+            
+            const asignaturasCalificaciones = estudiante.asignaturas.map(([asignatura, calif]) => `${asignatura.nombreAsignatura}: ${calif ?? "Sin calificar"}`).join(", ");
+
+            console.log(`Estudiante: ${estudiante.id} - ${estudiante.nombre}`);
+            console.log(`Asignaturas y calificaciones: ${asignaturasCalificaciones}`);
+            console.log(`Promedio: ${promedio ?? "Sin promedio"}`);
+            console.log("\n");
         }
 
         //Devuelvo el reporte de todos los estudiantes
