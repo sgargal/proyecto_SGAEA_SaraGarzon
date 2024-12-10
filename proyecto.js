@@ -125,7 +125,7 @@ class Persona{
 
     set edad(edad){
         //compruebo que la edad sea un numero y que no sea nagativo ni mayor de 100
-        if(/^[0-9]+$/.test(edad) && edad >= 0 && edad <= 100){
+        if(/^[0-9]+$/.test(edad) && edad > 0 && edad <= 100){
             this.#edad = edad;
         }else{
             console.error("ERROR: La edad solo debe contener números.");
@@ -208,6 +208,7 @@ class Estudiante extends Persona{
     get historial(){
         return this.#historial.join("\n");
     }
+
     //MÉTODOS
     toString(){
         const mostrarAsignaturas = this.#asignaturas.map(([asig,calif]) => `${asig.nombreAsignatura} : ${calif ?? "Sin calificacion"}`).join(", ");
@@ -215,9 +216,6 @@ class Estudiante extends Persona{
         return `${super.toString()}, ID: ${this.id}, Asignaturas: [${mostrarAsignaturas}]`;
     }
 
-    
-
-    //MÉTODOS
     //MATRICULAR ALUMNO
     matricular(...asignaturas){
         for(let asignatura of asignaturas){
@@ -304,11 +302,11 @@ class Estudiante extends Persona{
 //CLASE ASIGNATURAS
 class Asignaturas{
     #nombreAsignatura;
-    #calificaciones = [];
+    #calificaciones;
 
-    constructor(nombreAsignatura, calificaciones){
+    constructor(nombreAsignatura){
         this.nombreAsignatura = nombreAsignatura;
-        this.#calificaciones = calificaciones;
+        this.#calificaciones = [];
     }
 
     //GETTERS Y SETTERS
@@ -323,10 +321,6 @@ class Asignaturas{
             console.error("ERROR: El nombre de la asignatura no es válido.")
         }
     }
-
-    get calificaciones(){
-        return this.#calificaciones;
-    }
     
     //MÉTODOS
     //Para añadir calificaciones creo un metodo ya que con setter borraria los valores anteriores
@@ -339,6 +333,10 @@ class Asignaturas{
         }
     }
 
+    get calificaciones(){
+        return this.#calificaciones;
+    }
+
     calcularPromedioCalificaciones(){
         //Si el array esta vacío, devuelve 0
         if(this.#calificaciones.length === 0){
@@ -349,8 +347,6 @@ class Asignaturas{
         //calculo la media y devuelvo un el resultado con 2 decimales
         return (suma/this.#calificaciones.length).toFixed(2);
     }
-
-    
 
     toString(){
         return `Nombre: ${this.nombreAsignatura}, Calificaciones: ${this.calificaciones}`;
@@ -422,10 +418,6 @@ class ListaEstudiantes extends Lista{
         return sumTotal / stuConPromedio;
     }
 
-    buscarPorNombreEstudiante(patron){
-        return this.buscarElementos(estudiante => patron.test(estudiante.nombre));
-    }
-
     generarReporte(){
         //Recorro todos los estudiantes de la lista
         for(const estudiante of this.obtenerElementos()){
@@ -465,10 +457,298 @@ class ListaAsignaturas extends Lista {
         return nombres;
     }
 
-    buscarPorNombre(patron){
-        return this.buscarElementos(asignatura => patron.test(asignatura.nombreAsignatura));
-    }
-
 
 }
+
+//PROGRAMA PRINCIPAL
+
+const listaEstudiantes = new ListaEstudiantes();
+const listaAsignaturas = new ListaAsignaturas();
+
+function menuPrincipal(){
+    console.log(`
+        +-----   MENÚ PRINCIPAL  ----+
+        | 1. Crear                   |
+        | 2. Eliminar                |
+        | 3. Matricular              |
+        | 4. Desmatricular           |
+        | 5. Mostrar Registros       |
+        | 6. Calificar               |
+        | 7. Mostrar Promedio        |
+        | 8. Buscar                  |
+        | 9. Reporte                 |      
+        | 10. Salir                  |  
+        +----------------------------+         
+    `);
+}
+
+function menuCrear(){
+    console.log(`
+        +-----    MENÚ     ----+ 
+        | 1. Crear Estudiante  | 
+        | 2. Crear Asignatura  | 
+        | 3. Salir             | 
+        +----------------------+
+    `);
+}
+
+function menuEliminar(){
+    console.log(`
+        +-----     MENÚ       ----+ 
+        | 1. Eliminar Estudiante  | 
+        | 2. Eliminar Asignatura  | 
+        | 3. Salir                | 
+        +-------------------------+
+    `);
+}
+
+function menuBuscar(){
+    console.log(`
+        +-----     MENÚ       ----+ 
+        | 1. Buscar Estudiante    | 
+        | 2. Buscar Asignatura    | 
+        | 3. Salir                | 
+        +-------------------------+
+    `);
+}
+
+
+let salirMenuPrincipal = false;
+while(!salirMenuPrincipal){
+    menuPrincipal();
+    const op = prompt("Elija una opción: ");
+
+    switch(op){
+        case 1: 
+            menuCrear();
+            const opCrear = prompt("Elija una opción: ");
+            switch(opCrear){
+                case '1':
+                    const id = prompt("ID del estudiante: ");
+                    const nombre = prompt("Nombre del estudiante: ");
+                    const edad = prompt("Edad del estudiante: ");
+                    const calle = prompt("Ingrese la calle: ");
+                    const numero = prompt("Ingrese el número: ");
+                    const piso = prompt("Ingrese el piso: ");
+                    const provincia = prompt("Ingrese la provincia: ");
+                    const codPostal = prompt("Ingrese el código postal: ");
+                    const localidad = prompt ("Ingrese la localidad: ");
+    
+                    const direccion = new Direccion(calle, numero, piso, codPostal, provincia, localidad);
+
+                    const estudiante = new Estudiante(id, nombre, edad, direccion);
+
+                    console.log("Estudiante correctamente creado.");
+                    console.log(estudiante.toString());
+                    listaEstudiantes.agregarElemento(estudiante);
+                    break;
+                case '2':
+                    const nombreAsig = prompt("Nombre de la asignatura: ");
+
+                    if(nombreAsig.trim() === ""){
+                        console.error("ERROR: Debe ingresar un nombre válido.");
+                    }else{
+                        const asig = new Asignaturas(nombreAsig);
+
+                        console.log("Asignatura creada correctamente.");
+                        console.log(asig.toString());
+                        listaAsignaturas.agregarElemento(asig);
+                    }
+                    break;
+                case '3':
+                    salirMenuPrincipal = true;
+                    break;
+                default:
+                    console.error("Opción no válida."); 
+            }
+            break;
+            case '2':
+                menuEliminar();
+                const opEliminar = prompt("Elija una opción: ");
+
+                switch(opEliminar){
+                    case '1':
+                        const idEliminar = prompt("Ingrese el ID del alumno que desea eliminar: ");
+                        listaEstudiantes.eliminarElemento(estudiante => estudiante.id === idEliminar);
+
+                        console.log(listaEstudiantes.obtenerElementos());
+
+                        break;
+                    case '2':
+                        const nombreEliminar = prompt("Ingrese el nombre de la asignatura que desea eliminar: ");
+                        listaAsignaturas.eliminarElemento(asignatura => asignatura.nombreAsignatura === nombreEliminar);
+
+                        console.log(listaAsignatura.obtenerElementos());
+
+                        break;
+                    case '3':
+                        salirMenuPrincipal = true;
+                        break;
+                    default:
+                        console.error("ERROR: Opción no válida.");
+                }
+            break;
+            case '3':
+                if(listaEstudiantes.obtenerElementos().length === 0){
+                    console.error("ERROR: No hay estudiantes creados. Pruebe a crear uno.");
+                    break;
+                }
+
+                if(listaAsignaturas.obtenerElementos().length === 0){
+                    console.error("ERROR: No hay asignaturas creadas. Pruebe a crear una.");
+                    break;
+                }
+
+                const idEstudianteMatricular = prompt("Ingrese el ID del estudiante que desea matricular: ");
+                const estEncontrado = listaEstudiantes.buscarElementos(estudiante => estudiante.id === idEstudianteMatricular);
+
+                if(!estEncontrado){
+                    console.error("ERROR: No se ha encontrado ese estudiante");
+                    break;
+                }
+
+                const nombreAsig = prompt("Ingrese el nombre de la asignatura.");
+                estudianteEncontrado.matricular({nombreAsignatura: nombreAsig});
+
+                console.log(`${estEncontrado.nombre} matriculado en ${nombreAsig.nombreAsignatura} correctamente`);
+                break;
+            case '4':
+                if(listaEstudiantes.obtenerElementos().length === 0){
+                    console.error("ERROR: No hay estudiantes creados. Pruebe a crear uno.");
+                    break;
+                }
+
+                if(listaAsignaturas.obtenerElementos().length === 0){
+                    console.error("ERROR: No hay asignaturas creadas. Pruebe a crear una.");
+                    break;
+                }
+
+                const idEst = prompt("Ingrese el ID del estudiante que desea desmatricular: ");
+                const stuEncontrado = listaEstudiantes.buscarElementos(estudiante => estudiante.id === idEst);
+
+                if(!stuEncontrado){
+                    console.error("ERROR: No se ha encontrado el estudiante.");
+                    break;
+                }
+                const nomAsig = prompt("Ingrese el nombre de la asignatura.");
+
+                if(stuEncontrado.asignaturas.some(asig => asig.nombreAsignatura === nomAsig)){
+                    stuEncontrado.desmatricular(nomAsig);
+                    console.log(`${stuEncontrado.nombre} desmatriculado en ${nomAsig.nombreAsignatura} correctamente`);
+                }else{
+                    console.error("ERROR: El estudiante no está matriculado")
+                }
+                break;
+            case '5':
+                if(listaEstudiantes.obtenerElementos().length === 0){
+                    console.error("ERROR: No hay estudiantes creados. Pruebe a crear uno.");
+                    break;
+                }
+
+                const idEstBuscar = prompt("Ingrese el id del estudiante para mostrar sus registros: ");
+                const estudianteEncontrado = listaEstudiantes.buscarElementos(estudiante => estudiante.id === idEstBuscar);
+
+                if(!estudianteEncontrado){
+                    console.error("ERROR: Ese estudiante no está creado.");
+                }else{
+                    console.log(estudianteEncontrado.registrosHistorial());
+                }
+                
+                break;
+            case '6':
+                const idEstudianteCalificar = prompt("Ingrese el id del estudiante: ");
+                const estudianteCalificar = listaEstudiantes.buscarElementos(estudiante => estudiante.id === idEstudianteCalificar);
+
+                if(!estudianteCalificar){
+                    console.error("ERROR: El estudiante no está creado. ");
+                    break;
+                }
+                
+                if(estudianteCalificar.asignaturas.length === 0){
+                    console.error("ERROR: El estudiante no está matriculado en ninguna asignatura.");
+                    break;
+                }
+
+                console.log("Asignaturas en las que el estudiante está matriculado: ");
+                estudianteCalificar.asignaturas.forEach((asig, index) => {
+                    console.log(`${index + 1}. ${asig.nombreAsignatura}`);
+                });
+
+                const asignaturaSeleccionada = parseInt(prompt("Elija una asignatura")) -1;
+
+                const calificacion = parseFloat(prompt("Ingrese la calificación (0-10): "));
+
+                if(asignaturaSeleccionada >= 0 && asignaturaSeleccionada < estudianteCalificar.asignaturas.length && !isNaN(calificacion) && calificacion >= 0 && calificacion <= 10){
+                    estudianteCalificar.asignaturas[asignaturaSeleccionada].aniadirCalificacion(calificacion);
+                    console.log(`Calificacion asignada a ${estudianteCalificar.asignaturas[asignaturaSeleccionada].nombreAsignatura}`);
+                }
+                break;
+            case '7':
+                const promedioGeneral = listaEstudiantes.calcularPromedio();
+
+                if(promedioGeneral !== null){
+                    console.log(`El promedio general es: ${promedioGeneral.toFixed(2)}`);
+                }else{
+                    console.error("No hay calificaciones registradas.");
+                }
+
+                break;
+            case '8':
+                menuBuscar();
+                const opBuscar = prompt("Elija una opción: ");
+                switch(opBuscar){
+                    case '1':
+                        const patron = prompt("Introduzca el nombre del estudiante que quiere ver: ");
+                        const encontradoEstudiante = listaEstudiantes.buscarElementos(estudiante => estudiante.nombre === patron);
+
+                        if(encontradoEstudiante){
+                            console.log(encontradoEstudiante.generarReporte());
+                        }else{
+                            console.error("ERROR: No hay resultados");
+                        }
+                        break;
+                    case '2':
+                        const patronAsig = prompt("Introduzca el nombre de la asignatura que quiere ver: ");
+                        const encontradaAsignatura = listaAsignaturas.buscarElementos(asignatura => asignatura.nombreAsignatura === patronAsig);
+
+                        if(encontradaAsignatura){
+                            console.log(encontradaAsignatura.listarAsignaturas());
+                        }else{
+                            console.error("ERROR: No hay resultados");
+                        }
+                        break;
+                    case '3':
+                        salirMenuPrincipal = true;
+                        break;
+                    default:
+                      console.error("ERROR: Opción no válida.");
+
+                }
+                break;
+            case '9':
+                if(listaEstudiantes.obtenerElementos().length === 0){
+                    console.error("ERROR: No hay estudiantes creados. Pruebe a crear uno.");
+                    break;
+                }
+
+                if(listaAsignaturas.obtenerElementos().length === 0){
+                    console.error("ERROR: No hay asignaturas creadas. Pruebe a crear una.");
+                    break;
+                }
+
+                listaEstudiantes.generarReporte();
+                break;
+            case '10':
+                salirMenuPrincipal = true;
+                break;
+            default:
+                console.error("ERROR: Opción no valida.");   
+    }
+}
+
+
+
+
+
+
 
