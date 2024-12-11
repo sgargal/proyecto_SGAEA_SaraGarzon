@@ -1,3 +1,6 @@
+//PROYECTO SGEA - SARA GARZÓN
+//Lo primero que he hecho ha sido definir la clase dirección
+
 //DEFINIR OBJETO DIRECCION (ATRIBUTO DE CLASE ESTUDIANTE)
 class Direccion{
     #calle;
@@ -7,6 +10,7 @@ class Direccion{
     #provincia;
     #localidad;
 
+    //He declaro así el constructor ya que estoy llamando al setter porque ahí es donde hago las validaciones
     constructor(calle, numero, piso, codigoPostal, provincia, localidad){
         this.calle = calle;
         this.numero = numero;
@@ -17,12 +21,18 @@ class Direccion{
     }
 
     //GETTERS Y SETTERS
+    //En los setters hago las validaciones segun el tipo de dato que se va a guardar
     get calle(){
         return this.#calle;
     }
 
     set calle(calle){
-        this.#calle = calle;
+        if(typeof calle === "string"){
+            this.#calle = calle;
+        }else{
+            console.error(`ERROR: No es válida la calle`);
+        }
+        
     }
 
     get numero(){
@@ -30,7 +40,12 @@ class Direccion{
     }
 
     set numero(numero){
-        this.#numero = numero;
+        if(typeof numero === "number"){
+            this.#numero = numero;
+        }else{
+            console.error(`ERROR: No es válido el número.`);
+        }
+
     }
 
     get piso(){
@@ -38,7 +53,11 @@ class Direccion{
     }
 
     set piso(piso){
-        this.#piso = piso;
+        if(typeof piso === "number"){
+            this.#piso = piso;
+        }else{
+            console.error(`ERROR: No es válido el piso.`);
+        }
     }
 
     get codigoPostal(){
@@ -46,7 +65,12 @@ class Direccion{
     }
 
     set codigoPostal(codigoPostal){
-        this.#codigoPostal = codigoPostal;
+        if(/^[0-9]{5}/.test(codigoPostal)){
+            this.#codigoPostal = codigoPostal;
+        }else{
+            console.error(`ERROR: No es válido el código postal.`);
+        }
+        
     }
 
     get provincia(){
@@ -54,7 +78,12 @@ class Direccion{
     }
 
     set provincia(provincia){
-        this.#provincia = provincia;
+        if(typeof provincia === "string"){
+            this.#provincia = provincia;
+        }else{
+            console.error(`ERROR: La provincia no es válida.`)
+        }
+        
     }
 
     get localidad(){
@@ -62,37 +91,21 @@ class Direccion{
     }
 
     set localidad(localidad){
-        this.#localidad = localidad;
+        if(typeof localidad === "string"){
+            this.#localidad = localidad;
+        }else{
+            console.error(`ERROR: La localidad no es válida.`);
+        }
+        
     }
 
     toString(){
         return `Calle: ${this.calle}, Numero: ${this.numero}, Piso: ${this.piso}, Código Postal: ${this.codigoPostal}, Provincia: ${this.provincia}, Localidad: ${this.localidad}`;
     }
-    // get direccion(){
-    //     return `${this.#direccion.calle}, ${this.#direccion.numero}, ${this.#direccion.piso}, ${this.#direccion.codigoPostal}, ${this.#direccion.provincia}, ${this.#direccion.localidad}`;
-    // }
-
-    // // set direccion(direccion){
-    // //     this.#direccion = direccion;
-    // // }
-
-    // set direccion(direccion){
-    //     //Verifico que direccion no sea null o undefined
-    //     if(direccion && 
-    //         typeof direccion.calle === "string" && //Válido que calle sea un string
-    //         typeof direccion.numero === "number" &&  //Válido que numero sea un number
-    //         typeof direccion.piso === "number" && //Válido que piso sea un number
-    //         (/^[0-9]{5}/.test(direccion.codigoPostal)) && //Validación de que codPostal tenga 5 numeros
-    //         typeof direccion.provincia === "string" &&
-    //         typeof direccion.localidad === "string"
-    //     ){
-    //         this.#direccion = direccion;
-    //     }else{
-    //         console.error("La direccion no es válida");
-    //     }
-    // }
 }
 //DEFINIR CLASE PERSONA
+//Defino la clase persona para implementar la herencia, si en un futuro se quisiera añadir por ejemplo un profesor podemos crear una clase hija a partir de esta.
+//He declarado atributos comunes como el nombre, la edad y la direccion.
 class Persona{
     #nombre;
     #edad;
@@ -158,7 +171,7 @@ class Estudiante extends Persona{
     //Creo los atributos de la clase estudiante privados para que no sean accesibles fuera de la clase
     #id;
     #asignaturas;
-    static numerosAsignados = [];
+    static numerosAsignados = [];//lo declaro static para que sea compartido por todas las instancias de la clase Estudiante
     #historial;
 
     constructor(id, nombre, edad, direccion){
@@ -166,17 +179,17 @@ class Estudiante extends Persona{
         super(nombre, edad, direccion);
         //Llamo al setter para aplicar la validacion y evitar la duplicacion
         this.id = id; 
-        this.#asignaturas = [];
-        this.#historial = [];//Historial de matriculaciones y desmatriculaciones
+        this.#asignaturas = [];//Se guarda la asignatura y las calificaciones 
+        this.#historial = [];//Historial de matriculaciones y desmatriculaciones, la asignatura en la que se aplico y la fecha en la que se hizo
     }
 
     //Getters y setters
     //ID
     get id(){
-        return this.#id; //Devuelve el valor interno de _id
+        return this.#id; 
     }
 
-    set id(id){
+    set id(id){//El id tiene que ser con el siguiente formato y además una vez que asignemos uno será guardado en el array de numerosAsignados
         if(!/^[0-9]{3}[E]$/.test(id)){
             console.error("ERROR: El id de los estudiantes no permite ese formato.");
             return;
@@ -195,12 +208,13 @@ class Estudiante extends Persona{
         return [...this.#asignaturas];
     }
 
-
+    //Como he mencionado antes, historial guardara una actividad, una asignatura y la fecha.
     get historial(){
         if(this.#historial.length === 0){
             return [];
         }
 
+        //Para que la fecha sea en español la formateo para que se devuelva con el formato que yo le he dado
         return this.#historial.map(([actividad, asignatura, fecha]) => {
             const dia = String(fecha.getDate()).padStart(2,'0');
             const mes = String(fecha.getMonth() + 1).padStart(2, '0');
@@ -211,16 +225,18 @@ class Estudiante extends Persona{
     }
 
     //MÉTODOS
-    toString(){
+    toString(){ 
         let mostrarAsignaturas = "Sin asignaturas";
-        if(this.#asignaturas.length>0){
+        if(this.#asignaturas.length>0){//Muestro el array de las asignaturas con sus calificaciones separadas por , y además si tiene calificacion la muestra si no muestra el siguiente mensaje: "Sin calificar"
             mostrarAsignaturas = this.#asignaturas.map(([asig, calif]) => `${asig.nombreAsignatura}: ${calif ?? "Sin calificar"}`).join(", ");
         }
-
+        //Sobrecarga del metodo de la clase padre junto con los atributos de la clase Estudiante
         return `${super.toString()}, ID: ${this.id}, Asignaturas: [${mostrarAsignaturas}]`;
     }
 
     //MATRICULAR ALUMNO
+    //En la clase matricular, lo primero que hago es comprobar si el estudiante ya está matriculado y si no, añado la asignatura sin calificaciones
+    //Además en el array de historial registro la matriculación.
     matricular(asignatura){
         const matriculado = this.#asignaturas.some(asig => asig[0].nombreAsignatura === asignatura.nombreAsignatura);
 
@@ -236,6 +252,7 @@ class Estudiante extends Persona{
     }
 
     //DESMATRICULAR ALUMNO
+    //Compruebo que este matriculado, si lo está lo elimino y guardo el registro en el historial.
     desmatricular(asignatura){
         const ind = this.#asignaturas.findIndex(asig => asig[0].nombreAsignatura === asignatura.nombreAsignatura);
 
@@ -251,6 +268,9 @@ class Estudiante extends Persona{
 
     
     //AGREGAR NOTAS
+    /*Primero compruebo que la asignatura este en la lista del estudiante.
+    Luego también verifico que el estudiante esté matriculado en la asginatura y que la calificacion sea entre 0 y 10
+    Asigno la calificación a la asignatura encontrada.*/
     agregarCalificacion(asignatura, calificacion){
         const asigEncontrada = this.#asignaturas.find(asig => asig[0].nombreAsignatura === asignatura.nombreAsignatura);
 
@@ -269,6 +289,10 @@ class Estudiante extends Persona{
         console.log(`La calificacion fue agregada correctamente.`);
     }
     //MEDIA DE LAS NOTAS
+    /*Filtro las asignaturas del estudiante paara ver aquellas que tienen calificación
+    Si no hay asignaturadas calificadas lanzo una advertencia
+    Calcula la suma de las calificaciones y divido entre la cantidad de asignaturas calificadas y lo devuelvo con 2 decimales.
+    */
     promedioCalificaciones(){
         const asignaturasCalificadas = this.#asignaturas.filter(asig => typeof asig[1] === 'number');
  
@@ -332,11 +356,11 @@ class Asignaturas{
     }
 
     calcularPromedioCalificaciones(){
-        //Si el array esta vacío, devuelve 0
+        //Si no hay calificaciones, devuelve 0 como promedio
         if(this.#calificaciones.length === 0){
             return 0;
         }
-        //Si el array contiene valores hago la media
+        //Si el array contiene valores hago la media, es decir, hay calificaciones
         const suma = this.#calificaciones.reduce((acumulador, calificacion) => acumulador+calificacion,0); //sumamos todos los valores del array
         //calculo la media y devuelvo un el resultado con 2 decimales
         return (suma / this.#calificaciones.length).toFixed(2);
@@ -360,6 +384,11 @@ class ListaEstudiantes{
         return this.#listaEstu;
     }
 
+    //AGREGAR ESTUDIANTE
+    /* Método para añadir un estudiante a la lista. Para ello:
+    - Compruebo que no está ya añadido el estudiante en la lista
+    - Si no existe lo añado y además lanzo un mensaje para que el usuario sea consciente y sea más claro
+    */
     agregarEstudiante(estudiante){
         if(this.#listaEstu.some(est => est.id === estudiante.id)){
             console.error("El estudiante ya se encuentra en la lista.");
@@ -369,6 +398,13 @@ class ListaEstudiantes{
         console.log(`Estudiante ${estudiante.nombre} agragado correctamente.`);
     }
 
+    //ELIMINAR ESTUDIANTE
+    /* Método para eliminar estudiante pasando como parametro el ID. Para ello: 
+    - Busca el índice del estudiante en la lista utilizando su ID
+    - Si no encuentra el estudiante, se muestra un error y finaliza la ejecución de la función
+    - Si lo encuentra, lo elimina de la lista
+    - Vuelvo a mostrar un mensaje para que sea más claro para el usuario.
+    */
     eliminarEstudiante(id){
         //uso el parametro para encontrar el indice
         const indice = this.#listaEstu.findIndex(est => est.id === id);
@@ -380,6 +416,13 @@ class ListaEstudiantes{
         console.log(`Estudiante con ID ${id} ha siso eliminado correctamente.`);
     }
 
+    //BUSCAR ESTUDIANTE
+    /*En este método se espera dar como resultado aquellos estudiantes que su nombre coincida parcialmente con lo que el usuario escriba por teclado
+    Para ello: 
+    - Filtra los estudiantes en la lista cuyo nombre coincida sin importar si es mayuscula o minuscula
+    - Si no hay resutlados, lanza un mensaje 
+    - Si hay resultados, recorre la lista de estudiantes que se han encontrado y los muestra.
+    */
     buscarEstudiantes(nombre){
         const estudiantesEncontrados = this.#listaEstu.filter(est => est.nombre.toLowerCase().includes(nombre.toLowerCase()));
 
@@ -390,6 +433,11 @@ class ListaEstudiantes{
         }
     }
 
+    //MOSTRAR LISTA ESTUDIANTES
+    /* Método para mostrar los estudiantes de la lista. Para ello:
+    - Si la lista esta vacía, lanza un error de que no hay estudiantes
+    - Si la lista tiene estudiantes, la recorre y los muestra. 
+    */
     mostrarListaEstudiantes(){
         if(this.#listaEstu.length === 0){
             console.error("No hay estudiantes registrados.");
@@ -451,6 +499,8 @@ class ListaAsignaturas{
 
 //PROGRAMA PRINCIPAL
 
+//Instacio algunos objetos para hacer pruebas
+
 const listaEstudiantes = new ListaEstudiantes();
 const listaAsignaturas = new ListaAsignaturas();
 
@@ -471,12 +521,8 @@ listaAsignaturas.agregarAsignatura(asignatura2);
 listaAsignaturas.agregarAsignatura(asignatura3);
 
 estudiante1.matricular(asignatura1);
-listaEstudiantes.mostrarListaEstudiantes();
 
-
-
-
-
+//En vez de hacer los menus dentro del switch creo funciones para mostrar cada menú y submenu y tener más claro el código.
 
 function menuPrincipal(){
     console.log(`
@@ -525,17 +571,19 @@ function menuBuscar(){
     `);
 }
 
-
+//Declaro una bandera para salir del programa
 let salirMenuPrincipal = false;
+
 while(!salirMenuPrincipal){
-    menuPrincipal();
+    menuPrincipal();//Muestro el menu principal
     const op = prompt("Elija una opción: ");
 
     switch(op){
         case '1': 
-            menuCrear();
+            menuCrear();//Muestro el submenú de la opción crear
             const opCrear = prompt("Elija una opción: ");
             switch(opCrear){
+                //Si creo un estudiante, pido los datos para instaciar uno y una dirección también.
                 case '1':
                     const id = prompt("ID del estudiante: ");
                     const nombre = prompt("Nombre del estudiante: ");
@@ -551,11 +599,14 @@ while(!salirMenuPrincipal){
 
                     const estudiante = new Estudiante(id, nombre, edad, direccion);
 
+                    //Muestro un mensaje para el usuario, muestro el estudiante que se va a crear y lo agrego a la lista.
                     console.log("Estudiante correctamente creado.");
                     console.log(estudiante.toString());
                     listaEstudiantes.agregarEstudiante(estudiante);
                     break;
                 case '2':
+                    //Si creo un estudiante, compruebo que no sea una cadena vacía
+                    //Si no es, muestro la asignatura que se acaba de crear y la agrego a la lista Asignatura
                     const nombreAsig = prompt("Nombre de la asignatura: ");
 
                     if(nombreAsig.trim() === ""){
@@ -576,11 +627,12 @@ while(!salirMenuPrincipal){
             }
             break;
             case '2':
-                menuEliminar();
+                menuEliminar();//Muestro el submenú de Eliminar
                 const opEliminar = prompt("Elija una opción: ");
 
                 switch(opEliminar){
                     case '1':
+                        //Si elige eliminar un estudiante, lo elimino de la lista y además muestro la lista actualizada
                         const idEliminar = prompt("Ingrese el ID del alumno que desea eliminar: ");
                         listaEstudiantes.eliminarEstudiante(idEliminar);
                         
@@ -589,6 +641,7 @@ while(!salirMenuPrincipal){
 
                         break;
                     case '2':
+                        //Si elige eliminar una asignatura, se elimina y además se muestra la lista de asignaturas actualizada
                         const nombreEliminar = prompt("Ingrese el nombre de la asignatura que desea eliminar: ");
                         listaAsignaturas.eliminarAsignatura(nombreEliminar);
 
@@ -604,47 +657,54 @@ while(!salirMenuPrincipal){
                 }
             break;
             case '3':
+                //Muestro la lista y le solicita al usuario que seleccione un estudiante
                 console.log("Seleccione que estudiante quiere matricular: ");
 
                 listaEstudiantes.mostrarListaEstudiantes();
                 const idEstudiante = prompt("Introduzca el ID del estudiante: ");
 
+                //Buscar al estudiante por ID
                 const estudiante = listaEstudiantes.listaEstu.find(est => est.id === idEstudiante);
                 if(!estudiante){
                     console.error("ERROR: Estudiante no encontrado.");
                     break;
                 }
-
+                //Mostrar las asignaturas y pedir al usuario que seleccione una
                 console.log("Seleccione la asignatura donde lo quiere matricular: ");
                 listaAsignaturas.mostrarListaAsignaturas();
                 const nombreAsignatura = prompt("Introduzca el nombre de la asignatura: ");
 
+                //Buscar a la asignatura por nombre
                 const asignatura = listaAsignaturas.listaAsignaturas.find(asig => asig.nombreAsignatura === nombreAsignatura);
                 if(!asignatura){
                     console.error("ERROR: Asignatura no encontrada.");
                     break;
                 }
+
+                //Matricular al estudiante
                 estudiante.matricular(asignatura);
                 console.log(`El estudiante ha sido correctamente matriculado.`);
                 break;
             case '4':
+                //Muestro la lista y le solicita al usuario que seleccione un estudiante
                 console.log("Seleccione que estudiante quiere matricular: ");
 
                 listaEstudiantes.mostrarListaEstudiantes();
                 const idEstudianteDesmatricular = prompt("Introduzca el ID del estudiante: ");
-
+                //Buscar al estudiante por ID
                 const estudianteDesmatricular = listaEstudiantes.listaEstu.find(est => est.id === idEstudianteDesmatricular);
                 if(!estudianteDesmatricular){
                     console.error("ERROR: Estudiante no encontrado.");
                     break;
                 }
-
+                //Muestra las asignaturas a las que está matriculado el estudiante
                 console.log(`Asignaturas del estudiante: `);
 
                 estudianteDesmatricular.asignaturas.forEach((asig, index) => {
                     console.log(`${index + 1}. ${asig[0].nombreAsignatura} - ${asig[1]}`);
                 });
 
+                //Solicitar al usuario que elija el numero de una asignatura
                 const numAsignatura = prompt("Introduzca el número de la asignatura. ");
                 const asignaturaDesmatricular = estudianteDesmatricular.asignaturas[numAsignatura - 1];
 
@@ -653,6 +713,7 @@ while(!salirMenuPrincipal){
                     break;
                 }
 
+                //Desmatricular al estudiante de la asignatura seleccionada
                 estudianteDesmatricular.desmatricular(asignaturaDesmatricular[0]);
 
                 console.log(`El estudiante ha sido desmatriculado correctamente.`);
@@ -670,7 +731,7 @@ while(!salirMenuPrincipal){
                     console.error("ERROR: Estudiante no encontrado.");
                     break;
                 }
-
+                 //Verificar que el estudiante tiene registros en el histroial
                 if(Array.isArray(estudianteRegistros.historial) && estudianteRegistros.historial.length === 0){
                     console.log("No tiene registros este estudiante.");
                 }else{
@@ -699,15 +760,16 @@ while(!salirMenuPrincipal){
                     console.error("ERROR: Asignatura no encontrada.");
                     break;
                 }
-
+                //Solicitar al usuario que introduzca la califacación y la pasamos a float para asegurarnos que sea un número.
                 const cali = prompt("Introduzca la calificacion: ");
                 const calificacion = parseFloat(cali);
 
+                //Válida que sea número  y que esté entre 0 y 10
                 if(isNaN(calificacion) || calificacion < 0 || calificacion > 10){
                     console.error("ERROR: La calificación no es válida.");
                     break;
                 }
-
+                //Califica al estudiante
                 estudianteCalificar.agregarCalificacion(asignaturaCalificar, calificacion);
 
                 console.log(`El estudiante ha sido calificado correctamente.`);
@@ -724,7 +786,7 @@ while(!salirMenuPrincipal){
                     console.error("ERROR: Estudiante no encontrado.");
                     break;
                 }
-
+                //Calcular y mostrar el pormedio del estudiante
                 const promedio = estudiantePromedio.promedioCalificaciones();
 
                 if(promedio === "Sin calificaciones"){
@@ -734,15 +796,17 @@ while(!salirMenuPrincipal){
                 }
                 break;
             case '8':
-                menuBuscar();
+                menuBuscar(); //Mostrar el submenú de buscar
                 const opBuscar = prompt("Elija una opción: ");
                 switch(opBuscar){
                     case '1':
+                        //Buscar un estudiante por nombre
                         const patron = prompt("Introduzca el nombre del estudiante que quiere ver: ");
                         listaEstudiantes.buscarEstudiantes(patron);
                         break;
 
                     case '2':
+                        //Buscar una asignatura por nombres
                         const patronAsig = prompt("Introduzca el nombre de la asignatura que quiere ver: ");
                         listaAsignaturas.buscarAsignaturas(patronAsig);
                         break;
@@ -793,6 +857,7 @@ while(!salirMenuPrincipal){
                 break;
 
             case '10':
+                //Salir del programa
                 console.log("Saliendo del programa...");
                 salirMenuPrincipal = true;
                 break;
@@ -800,12 +865,3 @@ while(!salirMenuPrincipal){
                 console.error("ERROR: Opción no valida.");   
     }
 }
-
-
-
-
-
-
-
-
-
