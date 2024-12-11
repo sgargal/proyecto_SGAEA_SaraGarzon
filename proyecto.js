@@ -1,4 +1,4 @@
-//PROYECTO SGEA - SARA GARZÓN
+//PROYECTO SGAEA - SARA GARZÓN
 //Lo primero que he hecho ha sido definir la clase dirección
 
 //DEFINIR OBJETO DIRECCION (ATRIBUTO DE CLASE ESTUDIANTE)
