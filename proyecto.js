@@ -285,7 +285,7 @@ class Estudiante extends Persona{
         }
 
 
-        asigEncontrada[1].push(calificacion);
+        asigEncontrada[1]=calificacion;
         console.log(`La calificacion fue agregada correctamente.`);
     }
     //MEDIA DE LAS NOTAS
