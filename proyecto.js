@@ -802,11 +802,11 @@ while(!salirMenuPrincipal){
                 //Calcular y mostrar el pormedio del estudiante
                 const promedio = estudiantePromedio.promedioCalificaciones();
 
-                if(promedio === ""){
-                    console.log("Este estudiante no tiene calificaciones.");
-                }else{
+                // if(promedio === "Sin calificar"){
+                //     console.log("Este estudiante no tiene calificaciones.");
+                // }else{
                     console.log(`El promedio del estudiante es ${promedio}`);
-                }
+                // }
                 break;
             case '8':
                 menuBuscar(); //Mostrar el submenú de buscar
