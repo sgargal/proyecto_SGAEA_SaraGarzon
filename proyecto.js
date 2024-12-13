@@ -213,14 +213,15 @@ class Estudiante extends Persona{
         if(this.#historial.length === 0){
             return [];
         }
-
+        
         //Para que la fecha sea en español la formateo para que se devuelva con el formato que yo le he dado
         return this.#historial.map(([actividad, asignatura, fecha]) => {
-            const dia = String(fecha.getDate()).padStart(2,'0');
-            const mes = String(fecha.getMonth() + 1).padStart(2, '0');
-            const anio = fecha.getFullYear();
+            // const dia = String(fecha.getDate()).padStart(2,'0');
+            // const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+            // const anio = fecha.getFullYear();
+            const fechaFormateada = new Intl.DateTimeFormat('es-ES', {dateStyle: 'long'}).format(fecha);
 
-            return `${actividad} en ${asignatura} el ${dia}-${mes}-${anio}`;
+            return `${actividad} en ${asignatura} el ${fechaFormateada}`;
         });
     }
 
@@ -237,7 +238,7 @@ class Estudiante extends Persona{
     //MATRICULAR ALUMNO
     //En la clase matricular, lo primero que hago es comprobar si el estudiante ya está matriculado y si no, añado la asignatura sin calificaciones
     //Además en el array de historial registro la matriculación.
-    matricular(asignatura){
+    matricular(asignatura, notas=[]){
         const matriculado = this.#asignaturas.some(asig => asig[0].nombreAsignatura === asignatura.nombreAsignatura);
 
         if(matriculado){
@@ -245,7 +246,7 @@ class Estudiante extends Persona{
             return;
         }
 
-        this.#asignaturas.push([asignatura, "Sin calificar"]);
+        this.#asignaturas.push([asignatura, notas]);
         this.#historial.push(["Matriculacion", asignatura.nombreAsignatura, new Date()]);
 
         console.log(`Se ha matriculado en ${asignatura.nombreAsignatura} correctamente.`);
@@ -284,8 +285,13 @@ class Estudiante extends Persona{
             return;
         }
 
+        if (asigEncontrada[1] === "Sin calificar") {
+            asigEncontrada[1] = []; // Convertimos "Sin calificar" a un array
+        }
+    
+        asigEncontrada[1].push(calificacion);
 
-        asigEncontrada[1]=calificacion;
+        //asigEncontrada[1]=calificacion;
         console.log(`La calificacion fue agregada correctamente.`);
     }
     //MEDIA DE LAS NOTAS
@@ -294,15 +300,22 @@ class Estudiante extends Persona{
     Calcula la suma de las calificaciones y divido entre la cantidad de asignaturas calificadas y lo devuelvo con 2 decimales.
     */
     promedioCalificaciones(){
-        const asignaturasCalificadas = this.#asignaturas.filter(asig => typeof asig[1] === 'number');
+        const asignaturasCalificadas = this.#asignaturas.filter(asig => Array.isArray(asig[1]) && asig[1].length>0);
  
         if(asignaturasCalificadas.length === 0 ){
             console.warn("No hay calificaciones registradas para este estudiante.");
             return "Sin calificaciones";
         }
+        
+        let sum = 0;
+        let totalCalificaciones = 0;
 
-        const sum = asignaturasCalificadas.reduce((acumulador, asig) => acumulador + asig[1], 0);
-        return (sum / asignaturasCalificadas.length).toFixed(2);
+        for(const asig of asignaturasCalificadas){
+            sum += asig[1].reduce((acumuladorCalificaciones, notaActual) => acumuladorCalificaciones + notaActual, 0);
+            totalCalificaciones += asig[1].length;
+        }
+        // const sum = asignaturasCalificadas.reduce((acumulador, asig) => acumulador + asig[1], 0);
+        return (sum / totalCalificaciones).toFixed(2);
     }
 
     //ELIMINAR ID
@@ -789,7 +802,7 @@ while(!salirMenuPrincipal){
                 //Calcular y mostrar el pormedio del estudiante
                 const promedio = estudiantePromedio.promedioCalificaciones();
 
-                if(promedio === "Sin calificaciones"){
+                if(promedio === ""){
                     console.log("Este estudiante no tiene calificaciones.");
                 }else{
                     console.log(`El promedio del estudiante es ${promedio}`);
