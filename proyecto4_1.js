@@ -5,21 +5,19 @@
 /*
     CAMBIOS REALIZADOS
     1 - CLASE DIRECCIÓN Y PERSONA
-    En la clase dirección antes controlaba los errores de los setter para validarlos con console.error, por lo tanto, 
+    En la clase dirección antes utilizaba para controlar los errores un console.error, por lo tanto, 
     cuando habia un error, el programa seguía. Ahora lo he cambiado a "throw" para que en cualquier intento de 
     asignar datos inválidos detenga el flujo del programa y así se identifica inmediatamente los errores.
-    2 - CLASE ESTUDIANTE
+    2 - CLASE ESTUDIANTE, ASIGNATURA, LISTAESTUDIANTES Y LISTAASIGNATURAS
         2.1 - SETTERS
-        En el setter de la clase estudiante hacia un console.error y luego un return para que terminara el flujo del programa,
+        Enlos setters de estas clases antes hacia un console.error y luego un return para que terminara el flujo del programa,
         asi que lo he cambiado a un throw para que termine el programa.
         2.2 - MÉTODOS
         Encapsulo lo que es la lógica principal de la función dentro de un try catch, si
         ocurre un error lanza una excepción y corta el flujo del programa con un throw.
-    3 - CLASE ASIGNATURA
-
-        
-        
-
+    3 - PROGRAMA PRINCIPAL
+    He englobado todo el programa en un try catch general, lo que permite capturar cualquier error
+    que no haya controlado dentro del codigo y asi se pueda identificar fácilemente el error.
 */
 
 //DEFINIR OBJETO DIRECCION (ATRIBUTO DE CLASE ESTUDIANTE)
@@ -944,5 +942,5 @@ try{
         }
     }
 }catch(error){
-    console.error(`ERROR: Se ha producido un error -> ${error.message}`);
+    console.error(`Se ha producido un error -> ${error.message}`);
 }
