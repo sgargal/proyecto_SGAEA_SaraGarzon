@@ -10,9 +10,9 @@
   "opts": {
     "destination": "./docs",
     "recurse": true,
-    "template": "node_modules/clean-jsdoc-theme",
-    "theme_opts": {
-      "theme": "iournal"
-    }
-  }
+    "template": "node_modules/minami"
+  },
+  "plugins": [
+    "node_modules/jsdoc/plugins/markdown"
+  ]
 }

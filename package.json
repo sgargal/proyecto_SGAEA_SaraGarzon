@@ -3,13 +3,8 @@
   "version": "1.0.0",
   "description": "Este proyecto implementa un sistema de gestión de estudiantes y asignaturas. Se incluyen clases para representar estudiantes, asignaturas y las listas de ambos objetos. También permite realizar acciones sobre ellos como matricular a los estudiantes en asignaturas, desmatricularlos, calificarlos, etc.",
   "main": "proyecto4_3.js",
-  "directories": {
-    "doc": "docs"
-  },
   "scripts": {
-    "clean-docs": "rimraf docs",
-    "jsdocs": "npm run clean && jsdoc -c jsdoc.json",
-    "docs": "npm run clean-docs && jsdoc proyecto4_3.js -d docs"
+    "docs4_3": "jsdoc -c jsdoc.json proyecto_sgaea_saragarzon/proyecto4_3.js -d proyecto_sgaea_saragarzon/documentacion -p"
   },
   "repository": {
     "type": "git",
@@ -27,5 +22,9 @@
     "jsdoc": "^4.0.4",
     "npm-run-all": "^4.1.5",
     "rimraf": "^6.0.1"
+  },
+  "dependencies": {
+    "minami": "^1.2.3",
+    "taffydb": "^2.7.3"
   }
 }
