@@ -1,0 +1,8 @@
+# Ignorar node_modules
+node_modules/
+
+# Ignorar documentación generada automáticamente
+proyecto_sgaea_saragarzon/documentacion/
+
+# Ignorar archivos HTML generados por JSDoc
+proyecto_sgaea_saragarzon/*.html
