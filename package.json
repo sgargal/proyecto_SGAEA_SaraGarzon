@@ -1,0 +1,26 @@
+{
+  "name": "proyecto_sgaea_saragarzon",
+  "version": "1.0.0",
+  "description": "Este proyecto implementa un sistema de gestión de estudiantes y asignaturas. Se incluyen clases para representar estudiantes, asignaturas y las listas de ambos objetos. También permite realizar acciones sobre ellos como matricular a los estudiantes en asignaturas, desmatricularlos, calificarlos, etc.",
+  "main": "proyecto.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sgargal/Proyecto_DWEC.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sgargal/Proyecto_DWEC/issues"
+  },
+  "homepage": "https://github.com/sgargal/Proyecto_DWEC#readme",
+  "devDependencies": {
+    "jsdoc": "^4.0.4"
+  }
+}
