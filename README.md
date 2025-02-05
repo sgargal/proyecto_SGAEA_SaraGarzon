@@ -20,5 +20,18 @@ Este proyecto implementa un sistema de gestión de estudiantes y asignaturas. Se
  - Generar reportes de los estudiantes
  - Menús interactivos
 
+ ### PASOS REALIZADOS
+ 1. **Instalación de Node.js**:
+ - Se instaló Node.js mediante su página web y ejecutar scripts en JavaScript.
+ 2. **Instalación de JSDoc**
+ - JSDoc se instaló utilizando npm con el siguiente comando: 
+        npm install -g jsdoc
+ 3. **Añadir comentarios JSDoc al código**
+ - Añadí comentarios JSDoc a mi código para documentarlo correctamente.
+ 4. **Creación de un Script npm para automatizar JSDoc**
+ - He creado el script `package.json` para automatizar la generación de la documentacion con JSDoc. 
+ - También he creado un arhivo de configuración `jsdoc.json` para especificar las opciones de JSDoc.
+
+
 ## AUTOR
  - **SARA GARZÓN GALDEANO**
