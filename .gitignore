@@ -1,0 +1,5 @@
+# Ignorar node_modules
+node_modules/
+
+# Ignorar la carpeta de documentación
+proyecto_sgaea_saragarzon/documentación/
