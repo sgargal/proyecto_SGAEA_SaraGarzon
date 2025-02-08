@@ -47,7 +47,7 @@ Este proyecto implementa un sistema de gestión de estudiantes y asignaturas. Se
      import Asignaturas from './Asignaturas.js';
      ```
 3. **Instalar extensiones necesarias**
-   En mi caso, tuve que instalar la dependencia para que `prompt` funcionase. 
+   - En mi caso, tuve que instalar la dependencia para que `prompt` funcionase. 
 4. **Ejecutar el proyecto**
    - Abrí una terminal en VSC y ejecuté el siguiente comando:
    ```sh
