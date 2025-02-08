@@ -32,6 +32,27 @@ Este proyecto implementa un sistema de gestión de estudiantes y asignaturas. Se
  - He creado el script `package.json` para automatizar la generación de la documentacion con JSDoc. 
  - También he creado un arhivo de configuración `jsdoc.json` para especificar las opciones de JSDoc.
 
+ ### DIVISIÓN DEL PROYECTO EN MÓDULOS
+ 1. **Estructuras de las carpetas**
+    - El proyecto se ha dividido en diferentes módulos, cada uno en su propio archivo dentro de la carpeta `src/modulos`. Por ejemplo:
+     - `Direccion.js`
+     - `Persona.js`
+     - `Estudiante.js`
+     - `Asignaturas.js`
+     - `ListaEstudiantes.js`
+     - `ListaAsignaturas.js`
+ 2. **Importación y exportación de los módulos**
+    - Cada clase se exporta desde su archivo correspondiente y se importa donde sea necesario. Por ejemplo, en `ListaAsignaturas.js`:
+     ```js
+     import Asignaturas from './Asignaturas.js';
+     ```
+3. **Instalar extensiones necesarias**
+   En mi caso, tuve que instalar la dependencia para que `prompt` funcionase. 
+4. **Ejecutar el proyecto**
+   - Abrí una terminal en VSC y ejecuté el siguiente comando:
+   ```sh
+     npm start
+     ```
 
 ## AUTOR
  - **SARA GARZÓN GALDEANO**
