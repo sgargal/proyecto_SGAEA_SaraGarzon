@@ -4,7 +4,7 @@
   "description": "Este proyecto implementa un sistema de gestión de estudiantes y asignaturas. Se incluyen clases para representar estudiantes, asignaturas y las listas de ambos objetos. También permite realizar acciones sobre ellos como matricular a los estudiantes en asignaturas, desmatricularlos, calificarlos, etc.",
   "main": "proyecto4_3.js",
   "scripts": {
-    "docs4_3": "jsdoc -c jsdoc.json proyecto_sgaea_saragarzon/proyecto4_3.js -d proyecto_sgaea_saragarzon/documentacion -p"
+    "docs4_3": "jsdoc -c jsdoc.json ./proyecto4_3.js -d ./documentacion -p"
   },
   "repository": {
     "type": "git",
