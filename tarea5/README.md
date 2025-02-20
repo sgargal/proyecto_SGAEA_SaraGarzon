@@ -101,8 +101,8 @@ npm run build
 ---
 ### Probar el código
 Para probar que el código funciona usé Browserstack.com. 
-- Chrome 44
-  <img src="img/chrome44">
+- Chrome 61
+  <img src="img/chrome61">
   
 
 
