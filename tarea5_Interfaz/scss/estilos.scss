@@ -1,0 +1,82 @@
+// Paleta de colores
+$color-primario: #00a396;
+$hover-color: #014f48;
+$background-color: #f4f4f4;
+$color-texto: #333;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: $background-color;
+  padding: 20px;
+}
+
+// Estilos para el header
+header {
+  background: $color-primario;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+
+  h1 {
+    font-size: 24px;
+  }
+}
+
+// Sección principal
+main {
+  section {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    max-width: 400px;
+
+    h2 {
+      margin-bottom: 15px;
+      color: $color-texto;
+    }
+  }
+}
+
+.menu {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  font-size: 16px;
+  background-color: $color-primario;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+
+  &:hover {
+    background-color: $hover-color;
+  }
+}
+
+
+@media (max-width: 500px) {
+
+  main {
+    section {
+      max-width: 100%;
+      padding: 15px;
+    }
+  }
+
+  .menu {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+}
