@@ -102,7 +102,7 @@ npm run build
 ### Probar el código
 Para probar que el código funciona usé Browserstack.com. 
 - Chrome 61
-  <img src="img/chrome61">
+  <img src="img/chrome61.png">
   
 
 
