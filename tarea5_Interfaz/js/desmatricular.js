@@ -63,29 +63,44 @@ document.addEventListener("DOMContentLoaded", () => {
     function desmatricularEstudiante() {
         const idEstudiante = selectEstudiante.value;
         const nombreAsignatura = selectAsignatura.value;
-
+    
         if (!idEstudiante || !nombreAsignatura) {
             alert("Debe seleccionar un estudiante y una asignatura.");
             return;
         }
-
+    
         const estudiante = listaEstudiantes.find(est => est.id === idEstudiante);
         if (!estudiante) {
             alert("Estudiante no encontrado.");
             return;
         }
-
+    
+        if (!Array.isArray(estudiante.historial)) {
+            estudiante.historial = [];
+        }
+    
+        // Verificar si el estudiante está matriculado en la asignatura
+        if (!estudiante.asignaturas.includes(nombreAsignatura)) {
+            alert("El estudiante no está matriculado en esta asignatura.");
+            return;
+        }
+    
         // Filtrar la asignatura eliminada
         estudiante.asignaturas = estudiante.asignaturas.filter(asig => asig !== nombreAsignatura);
-
+    
+        // Agregar un registro en el historial
+        const fechaDesmatricula = new Date().toLocaleDateString("es-ES", { dateStyle: "long" });
+        estudiante.historial.push(`Desmatriculación de ${nombreAsignatura} el ${fechaDesmatricula}`);
+    
         // Guardar cambios en localStorage
         localStorage.setItem("estudiantes", JSON.stringify(listaEstudiantes));
-
+    
         // Actualizar la lista de asignaturas en el select
         llenarSelectAsignaturas();
-
+    
         alert(`El estudiante ${estudiante.nombre} ha sido desmatriculado de ${nombreAsignatura}`);
     }
+    
 
     // Eventos
     selectEstudiante.addEventListener("change", llenarSelectAsignaturas);

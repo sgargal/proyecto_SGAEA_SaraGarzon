@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registros de estudiantes</title>
+    <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+    <header>
+        <h1>💻 SISTEMA DE GESTIÓN DE ESTUDIANTES Y ASIGNATURAS</h1>
+    </header>
+    <main>
+        <section class="mostrarRegistros">
+            <h2>Registros del Estudiante</h2>
+            <label for="elegirEstu">Seleccione un estudiante: </label>
+            <select id="elegirEstu"></select>
+
+            <br><br>
+
+            <button type="submit" id="verRegistros">Ver Registros del Estudiante</button>
+        </section>
+        <div id="registros"></div>
+        <button type="button" onclick="location.href = '../index.html'">Volver</button>
+    </main>
+    <script src="../js/mostrarRegistros.js"></script>
+</body>
+</html>

@@ -34,29 +34,39 @@ document.addEventListener("DOMContentLoaded", () => {
     // Función para matricular al estudiante en la asignatura
     function matricularEstudiante(idEstudiante, nombreAsignatura) {
         const estudiante = listaEstudiantes.find(est => est.id === idEstudiante);
-
+    
         if (!estudiante) {
             alert("Estudiante no encontrado");
             return;
         }
-
-        if(!estudiante.asignaturas){
+    
+        if (!Array.isArray(estudiante.asignaturas)) {
             estudiante.asignaturas = [];
         }
-
-        // Si el estudiante ya está matriculado en la asignatura, no hacer nada
+    
+        if (!Array.isArray(estudiante.historial)) {
+            estudiante.historial = [];
+        }
+    
+        // Verificar si ya está matriculado
         if (estudiante.asignaturas.includes(nombreAsignatura)) {
             alert("El estudiante ya está matriculado en esta asignatura.");
             return;
         }
-
-        estudiante.asignaturas.push(nombreAsignatura);  // Matricular en la asignatura
-
-        // Guardar los cambios en localStorage
+    
+        // Agregar la asignatura al estudiante
+        estudiante.asignaturas.push(nombreAsignatura);
+    
+        // Agregar un registro en el historial
+        const fechaMatricula = new Date().toLocaleDateString("es-ES", { dateStyle: "long" });
+        estudiante.historial.push(`Matriculación en ${nombreAsignatura} el ${fechaMatricula}`);
+    
+        // Guardar en localStorage
         localStorage.setItem("estudiantes", JSON.stringify(listaEstudiantes));
-
+    
         return `El estudiante ${estudiante.nombre} ha sido matriculado en ${nombreAsignatura}`;
     }
+    
 
     // Llenar los selects al cargar la página
     llenarSelectEstudiantes();
