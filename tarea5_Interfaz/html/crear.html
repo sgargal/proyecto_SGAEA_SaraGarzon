@@ -1,19 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear</title>
     <link rel="stylesheet" href="../css/estilos.css">
-    <script src="../js/crear.js"></script>
+    <script src="../js/script.js"></script>
 </head>
 <body>
     <header>
         <h1>💻 SISTEMA DE GESTIÓN DE ESTUDIANTES Y ASIGNATURAS</h1>
     </header>
     <main>
-        <section>
+        <section class = "contenedores">
             <form id="formEstudiante">
+                <h2>REGISTRAR ESTUDIANTE</h2>
                 <label for="idEstudiante">ID: </label>
                 <input type="text" id="idEstudiante" name="idEstudiante" required><br><br>
 
@@ -44,6 +45,15 @@
                 <input type="text" id="localidadEstudiante" name="localidadEstudiante" required><br><br>
 
                 <button type="submit">Crear Estudiante</button>
+            </form>
+        </section>
+        <section class="contenedores">
+            <form id="formAsignatura">
+                <h2>REGISTRAR ASIGNATURA</h2>
+                <label for="nombreAsignatura">Nombre:</label>
+                <input type="text" id="nombreAsignatura" name="nombreAsignatura" required>
+
+                <button type="submit">Crear Asignatura</button>
             </form>
         </section>
     </main>

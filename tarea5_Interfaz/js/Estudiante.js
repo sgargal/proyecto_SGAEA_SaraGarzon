@@ -1,4 +1,4 @@
-import Persona from "./Persona.js";
+import Persona from "../modulos/Persona.js";
 
 /**
  * Clase que representa un estudiante, hereda de la clase Persona
