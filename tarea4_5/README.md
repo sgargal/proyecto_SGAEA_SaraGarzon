@@ -102,11 +102,11 @@ npm run build
 ### Probar el código
 Para probar que el código funciona usé Browserstack.com. 
 - Chrome 61
-  <img src="img/chrome61.png">
+  <img src="img/chrome62.png">
 - Firefox 44
-  <img src="img/firefox44.png">
+  <img src="img/firefox44url.png">
 - Egde 14
-  <img src="img/edge14.png">
+  <img src="img/edge18.png">
   
 
 
