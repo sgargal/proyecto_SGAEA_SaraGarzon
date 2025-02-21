@@ -182,12 +182,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-//Matricular 
 document.addEventListener("DOMContentLoaded", () => {
-    const listaEstudiantes = [
-        {id:'123E', nombre: 'Sara Garzón'},
-        {id: '124E', nombre: 'Juan García'},
-        {id: '125E', nombre: 'Adrián Martín'}
+    // Recuperar los estudiantes y asignaturas desde localStorage
+    let listaEstudiantes = JSON.parse(localStorage.getItem("estudiantes")) || [
+        {id:'123E', nombre: 'Sara Garzón', asignaturas: []},
+        {id: '124E', nombre: 'Juan García', asignaturas: []},
+        {id: '125E', nombre: 'Adrián Martín', asignaturas: []}
     ];
 
     const listaAsignaturas = [
@@ -196,9 +196,10 @@ document.addEventListener("DOMContentLoaded", () => {
         {nombreAsignatura: 'DIW'}
     ];
 
-    //funcion para rellenar el select de los estudiantes
-    function llenarSelectEstudiantes(){
-        const selectEstudiante  = document.getElementById("elegirEstudiante");
+    // Función para llenar el select de estudiantes
+    function llenarSelectEstudiantes() {
+        const selectEstudiante = document.getElementById("elegirEstudiante");
+        selectEstudiante.innerHTML = '<option value="">Seleccione un estudiante</option>';  // Limpiar opciones
 
         listaEstudiantes.forEach(estudiante => {
             const option = document.createElement("option");
@@ -208,9 +209,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    //funcion para rellenar el select de las asignaturas
-    function llenarSelectAsignaturas(){
+    // Función para llenar el select de asignaturas
+    function llenarSelectAsignaturas() {
         const selectAsignatura = document.getElementById("elegirAsignatura");
+        selectAsignatura.innerHTML = '<option value="">Seleccione una asignatura</option>';  // Limpiar opciones
 
         listaAsignaturas.forEach(asignatura => {
             const option = document.createElement("option");
@@ -220,24 +222,30 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    function matricularEstudiante(idEstudiante, nombreAsignatura){
+    // Función para matricular al estudiante en la asignatura
+    function matricularEstudiante(idEstudiante, nombreAsignatura) {
         const estudiante = listaEstudiantes.find(est => est.id === idEstudiante);
 
-        if(!estudiante){
+        if (!estudiante) {
             alert("Estudiante no encontrado");
+            return;
         }
 
-        const asignatura = listaAsignaturas.find(asig => asig.nombreAsignatura === nombreAsignatura);
-        if(!asignatura){
-            alert("Asignatura no encontrada");
+        // Si el estudiante ya está matriculado en la asignatura, no hacer nada
+        if (estudiante.asignaturas.includes(nombreAsignatura)) {
+            alert("El estudiante ya está matriculado en esta asignatura.");
+            return;
         }
 
-        estudiante.asignaturas = estudiante.asignaturas || [];
-        estudiante.asignaturas.push(asignatura.nombreAsignatura);
+        estudiante.asignaturas.push(nombreAsignatura);  // Matricular en la asignatura
 
-        return `El estudiante ha sido matriculado en ${asignatura.nombreAsignatura}`;
+        // Guardar los cambios en localStorage
+        localStorage.setItem("estudiantes", JSON.stringify(listaEstudiantes));
+
+        return `El estudiante ${estudiante.nombre} ha sido matriculado en ${nombreAsignatura}`;
     }
 
+    // Llenar los selects al cargar la página
     llenarSelectEstudiantes();
     llenarSelectAsignaturas();
 
@@ -248,13 +256,105 @@ document.addEventListener("DOMContentLoaded", () => {
         const idEstudiante = estudianteSelect.value;
         const nombreAsignatura = asignaturaSelect.value;
 
-        if(!idEstudiante || !nombreAsignatura){
+        if (!idEstudiante || !nombreAsignatura) {
             alert("Por favor, seleccione un estudiante y una asignatura");
             return;
         }
 
-        matricularEstudiante(idEstudiante, nombreAsignatura);
+        // Realizar la matriculación
+        const matriculado = matricularEstudiante(idEstudiante, nombreAsignatura);
+
+        if (matriculado) {
+            alert(matriculado);  // Confirmación de matrícula
+        }
     });
 });
 
-    
+
+// DESMATRICULAR
+document.addEventListener("DOMContentLoaded", () => {
+    const selectEstudiante = document.getElementById("elegirEstudianteDesmatricular");
+    const selectAsignatura = document.getElementById("elegirAsignaturaDesmatricular");
+    const botonDesmatricular = document.getElementById("desmatricularBoton");
+
+    // Asegúrate de que los datos están correctamente almacenados en localStorage
+    const listaEstudiantes = JSON.parse(localStorage.getItem("estudiantes")) || [
+        {id:'123E', nombre: 'Sara Garzón', asignaturas: ['DWEC', 'DWES']},
+        {id: '124E', nombre: 'Juan García', asignaturas: ['DWEC']},
+        {id: '125E', nombre: 'Adrián Martín', asignaturas: ['DIW']}
+    ];
+
+    // Llenar el select de estudiantes
+    function llenarSelectEstudiantes() {
+        selectEstudiante.innerHTML = '<option value="">Seleccione un estudiante</option>';
+        listaEstudiantes.forEach(estudiante => {
+            const option = document.createElement("option");
+            option.value = estudiante.id;
+            option.textContent = estudiante.nombre;
+            selectEstudiante.appendChild(option);
+        });
+    }
+
+    // Llenar el select de asignaturas según el estudiante seleccionado
+    function llenarSelectAsignaturas() {
+        selectAsignatura.innerHTML = '<option value="">Seleccione una asignatura</option>';
+        selectAsignatura.disabled = true;  // Deshabilitar por defecto
+
+        const idEstudiante = selectEstudiante.value;
+        if (!idEstudiante) {
+            return;  // Si no hay estudiante seleccionado, no hace nada
+        }
+
+        const estudiante = listaEstudiantes.find(est => est.id === idEstudiante);
+        if (!estudiante || estudiante.asignaturas.length === 0) {
+            selectAsignatura.innerHTML = '<option value="">Este estudiante no tiene asignaturas</option>';
+            selectAsignatura.disabled = true;  // Deshabilitar si no tiene asignaturas
+            return;
+        }
+
+        estudiante.asignaturas.forEach(asignatura => {
+            const option = document.createElement("option");
+            option.value = asignatura;
+            option.textContent = asignatura;
+            selectAsignatura.appendChild(option);
+        });
+
+        selectAsignatura.disabled = false;  // Habilitar el select cuando haya asignaturas
+    }
+
+    // Función para desmatricular al estudiante
+    function desmatricularEstudiante() {
+        const idEstudiante = selectEstudiante.value;
+        const nombreAsignatura = selectAsignatura.value;
+
+        if (!idEstudiante || !nombreAsignatura) {
+            alert("Debe seleccionar un estudiante y una asignatura.");
+            return;
+        }
+
+        const estudiante = listaEstudiantes.find(est => est.id === idEstudiante);
+        if (!estudiante) {
+            alert("Estudiante no encontrado.");
+            return;
+        }
+
+        // Filtrar la asignatura eliminada
+        estudiante.asignaturas = estudiante.asignaturas.filter(asig => asig !== nombreAsignatura);
+
+        // Guardar cambios en localStorage
+        localStorage.setItem("estudiantes", JSON.stringify(listaEstudiantes));
+
+        // Actualizar la lista de asignaturas en el select
+        llenarSelectAsignaturas();
+
+        alert(`El estudiante ${estudiante.nombre} ha sido desmatriculado de ${nombreAsignatura}`);
+    }
+
+    // Eventos
+    selectEstudiante.addEventListener("change", llenarSelectAsignaturas);
+    botonDesmatricular.addEventListener("click", desmatricularEstudiante);
+
+    // Llenar el select de estudiantes al cargar la página
+    llenarSelectEstudiantes();
+});
+
