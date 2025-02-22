@@ -10,8 +10,8 @@
     <header>
         <h1>💻 SISTEMA DE GESTIÓN DE ESTUDIANTES Y ASIGNATURAS</h1>
     </header>
-    <main>
-        <section>
+    <main class="matricularMain">
+        <section class="matricularSection">
             <h2>MATRICULAR ESTUDIANTE</h2>
 
             <label for="elegirEstudiante">Seleccione un estudiante: </label>
@@ -22,10 +22,14 @@
             <label for="elegirAsignatura">Seleccione una asignatura: </label>
             <select id="elegirAsignatura"></select>
 
+            <br><br>
+
             <button id="matricularBoton">Matricular Estudiante</button>
         </section>
-        <button type="button" onclick="location.href = '../index.html'">Volver</button>
     </main>
+    <footer>
+        <button type="button" onclick="location.href = '../index.html'">Volver</button>
+    </footer>
     <script src="../js/matricular.js"></script>
 </body>
 </html>
