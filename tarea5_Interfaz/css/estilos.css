@@ -22,29 +22,70 @@ header h1 {
   font-size: 24px;
 }
 
-main .contenedores {
+.crearMain {
   display: flex;
+  justify-content: center;
+  align-items: flex-start;
   flex-wrap: wrap;
-  justify-content: space-between;
-  margin-top: 20px;
   gap: 20px;
 }
-main .contenedores #formEstudiante,
-main .contenedores #formAsignatura {
-  flex: 1;
-  min-width: 250px;
+
+.contenedores {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+  max-width: 900px;
 }
-main section {
+
+section {
+  flex: 1;
+  min-width: 300px;
+  max-width: 400px;
   background: white;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  display: inline-block;
-  max-width: 400px;
 }
-main section h2 {
-  margin-bottom: 15px;
-  color: #333;
+
+.indexMain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 1rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+form label {
+  font-weight: bold;
+  margin-top: 10px;
+}
+form input {
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+form button {
+  margin-top: 15px;
+  padding: 10px;
+  background: #00a396;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+form button:hover {
+  background: #014f48;
 }
 
 .menu {
@@ -63,14 +104,25 @@ main section h2 {
   background-color: #014f48;
 }
 
-@media (max-width: 500px) {
-  main section {
-    max-width: 100%;
-    padding: 15px;
-  }
-  .menu {
-    font-size: 14px;
-    padding: 8px;
+footer {
+  margin-top: 20px;
+}
+footer button {
+  background: #888;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+footer button:hover {
+  background: #666;
+}
+
+@media (max-width: 768px) {
+  .contenedores {
+    flex-direction: column;
+    align-items: center;
   }
 }
 
