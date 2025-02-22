@@ -30,7 +30,8 @@ header {
 }
 
 // Ajuste de la estructura para que los formularios se alineen bien
-.crearMain {
+.crearMain,
+.eliminarMain {
   display: flex;
   justify-content: center; // Centra los elementos
   align-items: flex-start;

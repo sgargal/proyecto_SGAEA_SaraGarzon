@@ -22,7 +22,8 @@ header h1 {
   font-size: 24px;
 }
 
-.crearMain {
+.crearMain,
+.eliminarMain {
   display: flex;
   justify-content: center;
   align-items: flex-start;
