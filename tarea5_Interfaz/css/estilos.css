@@ -28,7 +28,8 @@ header h1 {
 .desmatricularMain,
 .mostrarRegistrosMain,
 .calificarMain,
-.mostrarMain {
+.mostrarMain,
+.buscarMain {
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -69,7 +70,8 @@ section {
 .desmatricularSection,
 .mostrarRegistros,
 .calificarSection,
-.mostrarSection {
+.mostrarSection,
+.buscarSection {
   flex: 1;
   min-width: 300px;
   max-width: 400px;
@@ -85,7 +87,8 @@ section {
 .desmatricularSection h2,
 .mostrarRegistros h2,
 .calificarSection h2,
-.mostrarSection h2 {
+.mostrarSection h2,
+.buscarSection h2 {
   margin-bottom: 15px;
   color: #333;
   font-size: 22px;
@@ -94,7 +97,8 @@ section {
 .desmatricularSection label,
 .mostrarRegistros label,
 .calificarSection label,
-.mostrarSection label {
+.mostrarSection label,
+.buscarSection label {
   font-weight: bold;
   margin-top: 10px;
   display: block;
@@ -104,7 +108,8 @@ section {
 .desmatricularSection select,
 .mostrarRegistros select,
 .calificarSection select,
-.mostrarSection select {
+.mostrarSection select,
+.buscarSection select {
   padding: 8px;
   margin-top: 5px;
   border: 1px solid #ccc;
@@ -114,7 +119,8 @@ section {
 .desmatricularSection button,
 .mostrarRegistros button,
 .calificarSection button,
-.mostrarSection button {
+.mostrarSection button,
+.buscarSection button {
   margin-top: 15px;
   padding: 10px;
   background: #00a396;
@@ -128,7 +134,8 @@ section {
 .desmatricularSection button:hover,
 .mostrarRegistros button:hover,
 .calificarSection button:hover,
-.mostrarSection button:hover {
+.mostrarSection button:hover,
+.buscarSection button:hover {
   background: #014f48;
 }
 
