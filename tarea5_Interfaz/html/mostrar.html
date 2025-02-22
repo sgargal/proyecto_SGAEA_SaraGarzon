@@ -10,20 +10,23 @@
     <header>
         <h1>💻 SISTEMA DE GESTIÓN DE ESTUDIANTES Y ASIGNATURAS</h1>
     </header>
-    <main>
-        <section>
+    <main class="mostrarMain">
+        <section class="mostrarSection">
             <h2>Ver Promedio de Calificaciones</h2>
 
             <label for="elegirEstudiantePromedio">Seleccione un estudiante: </label>
             <select id="elegirEstudiantePromedio"></select>
 
+            <br>
+
             <button type="submit" id="btnMostrarPromedio">Mostrar Promedio</button>
 
             <p id="promedio"></p>
         </section>
-
-        <button type="button" onclick="location.href = '../index.html'">Volver</button>
     </main>
+    <footer>
+        <button type="button" onclick="location.href = '../index.html'">Volver</button>
+    </footer>
     
     <script src="../js/mostrar.js" defer></script>
 </body>
