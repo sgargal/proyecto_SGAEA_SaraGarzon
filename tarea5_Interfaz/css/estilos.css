@@ -25,7 +25,8 @@ header h1 {
 .crearMain,
 .eliminarMain,
 .matricularMain,
-.desmatricularMain {
+.desmatricularMain,
+.mostrarRegistrosMain {
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -63,7 +64,8 @@ section {
 }
 
 .matricularSection,
-.desmatricularSection {
+.desmatricularSection,
+.mostrarRegistros {
   flex: 1;
   min-width: 300px;
   max-width: 400px;
@@ -76,27 +78,31 @@ section {
   margin-top: 20px; /* Para dar espacio entre otros elementos */
 }
 .matricularSection h2,
-.desmatricularSection h2 {
+.desmatricularSection h2,
+.mostrarRegistros h2 {
   margin-bottom: 15px;
   color: #333;
   font-size: 22px;
 }
 .matricularSection label,
-.desmatricularSection label {
+.desmatricularSection label,
+.mostrarRegistros label {
   font-weight: bold;
   margin-top: 10px;
   display: block;
   color: #333; /* Asegura que el texto de la etiqueta tenga el mismo color que los encabezados */
 }
 .matricularSection select,
-.desmatricularSection select {
+.desmatricularSection select,
+.mostrarRegistros select {
   padding: 8px;
   margin-top: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 .matricularSection button,
-.desmatricularSection button {
+.desmatricularSection button,
+.mostrarRegistros button {
   margin-top: 15px;
   padding: 10px;
   background: #00a396;
@@ -107,7 +113,8 @@ section {
   transition: background 0.3s;
 }
 .matricularSection button:hover,
-.desmatricularSection button:hover {
+.desmatricularSection button:hover,
+.mostrarRegistros button:hover {
   background: #014f48;
 }
 

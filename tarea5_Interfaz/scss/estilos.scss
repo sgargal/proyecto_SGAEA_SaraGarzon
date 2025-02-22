@@ -33,7 +33,8 @@ header {
 .crearMain,
 .eliminarMain,
 .matricularMain,
-.desmatricularMain {
+.desmatricularMain,
+.mostrarRegistrosMain {
   display: flex;
   justify-content: center; // Centra los elementos
   align-items: flex-start;
@@ -74,7 +75,8 @@ section {
 }
 
 .matricularSection,
-.desmatricularSection {
+.desmatricularSection,
+.mostrarRegistros {
   flex: 1;
   min-width: 300px;
   max-width: 400px;
