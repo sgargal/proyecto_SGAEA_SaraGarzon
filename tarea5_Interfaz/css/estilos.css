@@ -24,7 +24,8 @@ header h1 {
 
 .crearMain,
 .eliminarMain,
-.matricularMain {
+.matricularMain,
+.desmatricularMain {
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -61,7 +62,8 @@ section {
   padding: 1rem;
 }
 
-.matricularSection {
+.matricularSection,
+.desmatricularSection {
   flex: 1;
   min-width: 300px;
   max-width: 400px;
@@ -73,24 +75,28 @@ section {
   text-align: center;
   margin-top: 20px; /* Para dar espacio entre otros elementos */
 }
-.matricularSection h2 {
+.matricularSection h2,
+.desmatricularSection h2 {
   margin-bottom: 15px;
   color: #333;
   font-size: 22px;
 }
-.matricularSection label {
+.matricularSection label,
+.desmatricularSection label {
   font-weight: bold;
   margin-top: 10px;
   display: block;
   color: #333; /* Asegura que el texto de la etiqueta tenga el mismo color que los encabezados */
 }
-.matricularSection select {
+.matricularSection select,
+.desmatricularSection select {
   padding: 8px;
   margin-top: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
-.matricularSection button {
+.matricularSection button,
+.desmatricularSection button {
   margin-top: 15px;
   padding: 10px;
   background: #00a396;
@@ -100,7 +106,8 @@ section {
   cursor: pointer;
   transition: background 0.3s;
 }
-.matricularSection button:hover {
+.matricularSection button:hover,
+.desmatricularSection button:hover {
   background: #014f48;
 }
 

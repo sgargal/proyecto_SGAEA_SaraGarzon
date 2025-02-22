@@ -32,7 +32,8 @@ header {
 // Ajuste de la estructura para que los formularios se alineen bien
 .crearMain,
 .eliminarMain,
-.matricularMain {
+.matricularMain,
+.desmatricularMain {
   display: flex;
   justify-content: center; // Centra los elementos
   align-items: flex-start;
@@ -72,7 +73,8 @@ section {
   padding: 1rem;
 }
 
-.matricularSection {
+.matricularSection,
+.desmatricularSection {
   flex: 1;
   min-width: 300px;
   max-width: 400px;
