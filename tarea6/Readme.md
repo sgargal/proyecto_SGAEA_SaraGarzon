@@ -1,4 +1,4 @@
-# Tarea 6 - JavaScript y Fetch API
+# Tarea 6 - JavaScript y API
 ## Descripción del Proyecto
 Este proyecto consiste en mostrar imágenes de gatos en una página web utilizando la API pública TheCatAPI. Las imágenes se obtienen dinámicamente mediante solicitudes fetch, y se muestran en un diseño responsivo utilizando TailwindCSS. Además, implementa una funcionalidad de scroll infinito que carga más imágenes a medida que el usuario se desplaza hacia abajo en la página.
 
